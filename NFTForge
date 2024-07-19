@@ -1,0 +1,30 @@
+# scripts/nft_creation.py
+
+import requests
+
+def mint_nft(api_url, contract_address, token_id, metadata):
+    """
+    Mint a new NFT.
+    
+    :param api_url: Base URL of the NFT minting API
+    :param contract_address: Address of the NFT contract
+    :param token_id: Unique ID of the NFT
+    :param metadata: Metadata associated with the NFT
+    :return: Response from the API
+    """
+    payload = {
+        'contract_address': contract_address,
+        'token_id': token_id,
+        'metadata': metadata
+    }
+    response = requests.post(f'{api_url}/mint', json=payload)
+    response.raise_for_status()
+    return response.json()
+
+# Example usage:
+# api_url = 'https://api.nftminting.com'
+# contract_address = '0x1234567890abcdef'
+# token_id = '1'
+# metadata = {'name': 'My NFT', 'description': 'This is a test NFT', 'image': 'http://example.com/image.png'}
+# response = mint_nft(api_url, contract_address, token_id, metadata)
+# print(response)
